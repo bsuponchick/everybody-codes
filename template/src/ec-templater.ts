@@ -46,9 +46,11 @@ program.command('create-year')
 
                         var logicPartOneContent = mustache.render(data.toString(), { day: i, part: 1, year: year });
                         var logicPartTwoContent = mustache.render(data.toString(), { day: i, part: 2, year: year });
+                        var logicPartThreeContent = mustache.render(data.toString(), { day: i, part: 3, year: year });
 
                         fs.writeFileSync(`../../${year}/src/Day${i}/${i}.1.logic.ts`, logicPartOneContent);
                         fs.writeFileSync(`../../${year}/src/Day${i}/${i}.2.logic.ts`, logicPartTwoContent);
+                        fs.writeFileSync(`../../${year}/src/Day${i}/${i}.3.logic.ts`, logicPartThreeContent);
                     });
 
                     await fs.readFile(`../templates/day/test.mustache`, (err, data) => {
@@ -59,9 +61,11 @@ program.command('create-year')
 
                         var testPartOneContent = mustache.render(data.toString(), { day: i, part: 1, year: year });
                         var testPartTwoContent = mustache.render(data.toString(), { day: i, part: 2, year: year });
+                        var testPartThreeContent = mustache.render(data.toString(), { day: i, part: 3, year: year });
 
                         fs.writeFileSync(`../../${year}/src/Day${i}/${i}.1.test.ts`, testPartOneContent);
                         fs.writeFileSync(`../../${year}/src/Day${i}/${i}.2.test.ts`, testPartTwoContent);
+                        fs.writeFileSync(`../../${year}/src/Day${i}/${i}.3.test.ts`, testPartThreeContent);
                     });
 
                     await fs.readFile(`../templates/day/run.mustache`, (err, data) => {
@@ -72,9 +76,11 @@ program.command('create-year')
 
                         var runPartOneContent = mustache.render(data.toString(), { day: i, part: 1, year: year });
                         var runPartTwoContent = mustache.render(data.toString(), { day: i, part: 2, year: year });
+                        var runPartThreeContent = mustache.render(data.toString(), { day: i, part: 3, year: year });
 
                         fs.writeFileSync(`../../${year}/src/Day${i}/${i}.1.ts`, runPartOneContent);
                         fs.writeFileSync(`../../${year}/src/Day${i}/${i}.2.ts`, runPartTwoContent);
+                        fs.writeFileSync(`../../${year}/src/Day${i}/${i}.3.ts`, runPartThreeContent);
                     });
 
                     await fs.readFile(`../templates/day/input.txt.mustache`, (err, data) => {
@@ -85,6 +91,8 @@ program.command('create-year')
 
                         var inputContent = mustache.render(data.toString(), { day: i, year: year });
                         fs.writeFileSync(`../../${year}/src/Day${i}/input.txt`, inputContent);
+                        fs.writeFileSync(`../../${year}/src/Day${i}/input2.txt`, inputContent);
+                        fs.writeFileSync(`../../${year}/src/Day${i}/input3.txt`, inputContent);
                     });
 
                     await fs.readFile(`../templates/day/test.txt.mustache`, (err, data) => {
