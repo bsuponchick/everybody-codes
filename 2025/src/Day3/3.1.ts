@@ -1,18 +1,19 @@
-import { add } from './3.1.logic';
+import { determineLargestDecliningSubset } from './3.1.logic';
 
 const args = process.argv;
 const debug = args.includes('--debug');
 const test = args.includes('--test');
 
-let message: string = '';
+let numbers: number[];
 
 const execute = () => {
-    console.log(`The message is ${message}`);
-    console.log(`Get ready for Everybody Codes 2025!`);
+    const largestSubset = determineLargestDecliningSubset(numbers);
+    const sumOfNumbers = largestSubset.reduce((acc, curr) => acc + curr, 0);
+    console.log(`The sum of the numbers is ${sumOfNumbers}`);
 }
 
 const parseLine = (line: string) => {
-   message = line;
+    numbers = line.split(',').map(Number);
 };
 
 var lineReader = require('readline').createInterface({

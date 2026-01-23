@@ -1,18 +1,10 @@
 import { describe, expect, test } from '@jest/globals';
-import { add } from './3.1.logic';
+import { determineLargestDecliningSubset } from './3.1.logic';
 
 describe('Day 3 - Part 1', () => {
-    describe(`When the add function is called...`, () => {
-        test(`with 1 and 2, it should return 3`, () => {
-            expect(add(1, 2)).toBe(3);
-        });
-
-        test(`with 2 and 3, it should return 5`, () => {
-            expect(add(2, 3)).toBe(5);
-        });
-
-        test(`with 3 and 4, it should return 7`, () => {
-            expect(add(3, 4)).toBe(7);
+    describe(`When the determineLargestDecliningSubset function is called...`, () => {
+        test(`It should return [10, 8, 5, 3, 2, 1] when given [10, 5, 1, 10, 3, 8, 5, 2, 2]`, () => {
+            expect(determineLargestDecliningSubset([10, 5, 1, 10, 3, 8, 5, 2, 2])).toEqual([10, 8, 5, 3, 2, 1]);
         });
     });
 });
