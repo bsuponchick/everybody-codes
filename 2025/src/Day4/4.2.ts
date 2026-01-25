@@ -1,22 +1,33 @@
-import { add } from './4.2.logic';
+import { add } from './4.1.logic';
 
 const args = process.argv;
 const debug = args.includes('--debug');
 const test = args.includes('--test');
 
-let message: string = '';
+let gears: number[] = [];
+const goal = 10000000000000;
 
 const execute = () => {
-    console.log(`The message is ${message}`);
-    console.log(`Get ready for Everybody Codes 2025!`);
+    console.log(`There are ${gears.length} gears`);
+    const ratios: number[] = [];
+
+    for (let i = 0; i < gears.length - 1; i++) {
+        ratios.push(gears[i] / gears[i + 1]);
+    }
+
+    console.log(JSON.stringify(ratios));
+    const productOfRatios = ratios.reduce((acc, curr) => acc * curr, 1);
+    console.log(`The product of the ratios is ${productOfRatios}`);
+
+    console.log(`The last gear will need to turn ${Math.ceil(goal / productOfRatios)} times`);
 }
 
 const parseLine = (line: string) => {
-   message = line;
+   gears.push(Number(line));
 };
 
 var lineReader = require('readline').createInterface({
-    input: require('fs').createReadStream(test ? './test.txt' : './input.txt')
+    input: require('fs').createReadStream(test ? './test.txt' : './input2.txt')
 });
 
 lineReader.on('line', (line) => {

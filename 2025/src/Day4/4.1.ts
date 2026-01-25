@@ -4,15 +4,25 @@ const args = process.argv;
 const debug = args.includes('--debug');
 const test = args.includes('--test');
 
-let message: string = '';
+let gears: number[] = [];
 
 const execute = () => {
-    console.log(`The message is ${message}`);
-    console.log(`Get ready for Everybody Codes 2025!`);
+    console.log(`There are ${gears.length} gears`);
+    const ratios: number[] = [];
+
+    for (let i = 0; i < gears.length - 1; i++) {
+        ratios.push(gears[i] / gears[i + 1]);
+    }
+
+    console.log(JSON.stringify(ratios));
+    const productOfRatios = ratios.reduce((acc, curr) => acc * curr, 1);
+    console.log(`The product of the ratios is ${productOfRatios}`);
+
+    console.log(`The last gear will turn ${Math.floor(productOfRatios * 2025)} times`);
 }
 
 const parseLine = (line: string) => {
-   message = line;
+   gears.push(Number(line));
 };
 
 var lineReader = require('readline').createInterface({

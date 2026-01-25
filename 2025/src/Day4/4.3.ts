@@ -1,22 +1,31 @@
-import { add } from './4.3.logic';
-
+import { Coordinate } from '../utils/interfaces/coordinate';
 const args = process.argv;
 const debug = args.includes('--debug');
 const test = args.includes('--test');
 
-let message: string = '';
+let gears: Coordinate[] = [];
 
 const execute = () => {
-    console.log(`The message is ${message}`);
-    console.log(`Get ready for Everybody Codes 2025!`);
+    console.log(`There are ${gears.length} gears`);
+    let turns = 100;
+
+    for (let i = 1; i < gears.length; i++) {
+        turns *= gears[i-1].y / gears[i].x;
+    }
+
+    console.log(`After 100 full turns, the final gear will have turned ${Math.floor(turns)} times`);
 }
 
 const parseLine = (line: string) => {
-   message = line;
+    const parts = line.split('|');
+    gears.push({
+        x: Number(parts[0]),
+        y: Number(parts[1]) || Number(parts[0]) ,
+    });
 };
 
 var lineReader = require('readline').createInterface({
-    input: require('fs').createReadStream(test ? './test.txt' : './input.txt')
+    input: require('fs').createReadStream(test ? './test3.txt' : './input3.txt')
 });
 
 lineReader.on('line', (line) => {
@@ -25,4 +34,4 @@ lineReader.on('line', (line) => {
     execute();
 });
 
-export {};
+export { };
