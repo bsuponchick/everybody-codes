@@ -1,18 +1,25 @@
-import { add } from './5.1.logic';
+import { Spine } from './5.1.logic';
 
 const args = process.argv;
 const debug = args.includes('--debug');
 const test = args.includes('--test');
 
-let message: string = '';
+let unused: number;
+let values: number[] = [];
 
 const execute = () => {
-    console.log(`The message is ${message}`);
-    console.log(`Get ready for Everybody Codes 2025!`);
+    const spine = new Spine();
+    for (const value of values) {
+        spine.add(value);
+    }
+    const quality = spine.getQuality();
+    console.log(`The quality is ${quality}`);
 }
 
 const parseLine = (line: string) => {
-   message = line;
+    const parts = line.split(':');
+    unused = parseInt(parts[0], 10);
+    values = parts[1].split(',').map(value => parseInt(value, 10));
 };
 
 var lineReader = require('readline').createInterface({
