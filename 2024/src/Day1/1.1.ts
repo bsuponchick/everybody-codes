@@ -1,18 +1,29 @@
-import { add } from './1.1.logic';
-
 const args = process.argv;
 const debug = args.includes('--debug');
 const test = args.includes('--test');
 
-let message: string = '';
+const creatures: string[] = [];
 
 const execute = () => {
-    console.log(`The message is ${message}`);
-    console.log(`Get ready for Everybody Codes 2024!`);
+    let countOfPotions = 0;
+
+    creatures.forEach((creature, index) => {
+        if (creature === 'A') {
+            // No potions needed
+        } else if (creature === 'B') {
+            // 1 potion needed
+            countOfPotions++;
+        } else if (creature === 'C') {
+            // 3 potions needed
+            countOfPotions += 3;
+        }
+    });
+
+    console.log(`Count of potions: ${countOfPotions}`);
 }
 
 const parseLine = (line: string) => {
-   message = line;
+    line.split('').map(creature => creatures.push(creature));
 };
 
 var lineReader = require('readline').createInterface({

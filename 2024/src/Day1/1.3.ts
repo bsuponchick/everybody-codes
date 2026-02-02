@@ -1,18 +1,33 @@
-import { add } from './1.3.logic';
+import { determinePotionCountForTriplet } from './1.3.logic';
 
 const args = process.argv;
 const debug = args.includes('--debug');
 const test = args.includes('--test');
 
-let message: string = '';
+interface Triplet {
+    first: string;
+    second: string;
+    third: string;
+}
+
+const triplets: Triplet[] = [];
 
 const execute = () => {
-    console.log(`The message is ${message}`);
-    console.log(`Get ready for Everybody Codes 2024!`);
+    let countOfPotions = 0;
+
+    console.log(`Triplets: ${JSON.stringify(triplets)}`);
+
+    triplets.forEach((triplet, index) => {
+        countOfPotions += determinePotionCountForTriplet(triplet);
+    });
+
+    console.log(`Count of potions: ${countOfPotions}`);
 }
 
 const parseLine = (line: string) => {
-   message = line;
+    for (let i = 0; i < line.length; i += 3) {
+        triplets.push({ first: line[i], second: line[i + 1], third: line[i + 2] });
+    }
 };
 
 var lineReader = require('readline').createInterface({

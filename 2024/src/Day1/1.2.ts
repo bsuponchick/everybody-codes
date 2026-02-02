@@ -1,18 +1,32 @@
-import { add } from './1.2.logic';
+import { determinePotionCountForPair } from './1.2.logic';
 
 const args = process.argv;
 const debug = args.includes('--debug');
 const test = args.includes('--test');
 
-let message: string = '';
+interface Pair {
+    first: string;
+    second: string;
+}
+
+const pairs: Pair[] = [];
 
 const execute = () => {
-    console.log(`The message is ${message}`);
-    console.log(`Get ready for Everybody Codes 2024!`);
+    let countOfPotions = 0;
+
+    console.log(`Pairs: ${JSON.stringify(pairs)}`);
+
+    pairs.forEach((pair, index) => {
+        countOfPotions += determinePotionCountForPair(pair);
+    });
+
+    console.log(`Count of potions: ${countOfPotions}`);
 }
 
 const parseLine = (line: string) => {
-   message = line;
+    for (let i = 0; i < line.length; i += 2) {
+        pairs.push({ first: line[i], second: line[i + 1] });
+    }
 };
 
 var lineReader = require('readline').createInterface({
