@@ -16,7 +16,7 @@ const parseLine = (line: string) => {
 };
 
 var lineReader = require('readline').createInterface({
-    input: require('fs').createReadStream(test ? './test.txt' : './input.txt')
+    input: require('fs').createReadStream(test ? './test2.txt' : './input2.txt')
 });
 
 lineReader.on('line', (line) => {

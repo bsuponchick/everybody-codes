@@ -90,7 +90,7 @@ program.command('create-year')
                         }
 
                         var inputContent = mustache.render(data.toString(), { day: i, year: year });
-                        fs.writeFileSync(`../../${year}/src/Day${i}/input.txt`, inputContent);
+                        fs.writeFileSync(`../../${year}/src/Day${i}/input1.txt`, inputContent);
                         fs.writeFileSync(`../../${year}/src/Day${i}/input2.txt`, inputContent);
                         fs.writeFileSync(`../../${year}/src/Day${i}/input3.txt`, inputContent);
                     });
@@ -102,7 +102,9 @@ program.command('create-year')
                         }
 
                         var testContent = mustache.render(data.toString(), { day: i, year: year });
-                        fs.writeFileSync(`../../${year}/src/Day${i}/test.txt`, testContent);
+                        fs.writeFileSync(`../../${year}/src/Day${i}/test1.txt`, testContent);
+                        fs.writeFileSync(`../../${year}/src/Day${i}/test2.txt`, testContent);
+                        fs.writeFileSync(`../../${year}/src/Day${i}/test3.txt`, testContent);
                     });
 
                     // Create the year files
