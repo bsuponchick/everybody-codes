@@ -1,18 +1,36 @@
-import { add } from './2.1.logic';
 
 const args = process.argv;
 const debug = args.includes('--debug');
 const test = args.includes('--test');
 
+const words: string[] = [];
 let message: string = '';
 
 const execute = () => {
+    let countOfRunicWords = 0;
+
+    console.log(`The words are ${words}`);
     console.log(`The message is ${message}`);
-    console.log(`Get ready for Everybody Codes 2024!`);
+
+    for (let word of words) {
+        const regex = new RegExp(`(${word})`, 'g');
+        const matches = message.match(regex);
+        console.log(`The matches for ${word} are ${matches}`);
+        if (matches) {
+            countOfRunicWords += matches.length;
+        }
+    }
+
+    console.log(`The count of runic words is ${countOfRunicWords}`);
 }
 
 const parseLine = (line: string) => {
-   message = line;
+    if (line.startsWith('WORDS:')) {
+        line = line.replace('WORDS:', '').trim();
+        line.split(',').map(word => words.push(word.trim()));
+    } else if (line.trim().length > 0) {
+        message = line;
+    }
 };
 
 var lineReader = require('readline').createInterface({
@@ -25,4 +43,4 @@ lineReader.on('line', (line) => {
     execute();
 });
 
-export {};
+export { };
