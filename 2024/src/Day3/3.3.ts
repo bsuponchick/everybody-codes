@@ -1,18 +1,35 @@
-import { add } from './3.3.logic';
+import { Tile, connectTiles, printTiles, setInitialDepth, digTiles, getTotalDepth } from './3.3.logic';
 
 const args = process.argv;
 const debug = args.includes('--debug');
 const test = args.includes('--test');
 
-let message: string = '';
+let tiles: Tile[][] = [];
 
 const execute = () => {
-    console.log(`The message is ${message}`);
-    console.log(`Get ready for Everybody Codes 2024!`);
+    connectTiles(tiles);
+    setInitialDepth(tiles);
+    printTiles(tiles);
+
+    let currentDepth = 1;
+    let digCount = digTiles(tiles, currentDepth);
+
+    // Just keep digging...just keep digging...
+    while (digCount > 0) {
+        currentDepth++;
+        digCount = digTiles(tiles, currentDepth);
+    }
+
+    printTiles(tiles);
+    console.log(`The total depth of the tiles is ${getTotalDepth(tiles)}`);
 }
 
 const parseLine = (line: string) => {
-   message = line;
+   const row: Tile[] = [];
+   line.split('').forEach((symbol) => {
+    row.push(new Tile(symbol));
+   });
+   tiles.push(row);
 };
 
 var lineReader = require('readline').createInterface({
