@@ -1,18 +1,31 @@
-import { add } from './4.3.logic';
-
 const args = process.argv;
 const debug = args.includes('--debug');
 const test = args.includes('--test');
 
-let message: string = '';
+let nails: number[] = [];
 
 const execute = () => {
-    console.log(`The message is ${message}`);
-    console.log(`Get ready for Everybody Codes 2024!`);
+    console.log(`There are ${nails.length} nails`);
+
+    nails.sort((a, b) => a - b);
+
+    let lowestDifference = Number.MAX_VALUE;
+
+    for (let i = 0; i < nails.length; i++) {
+        let totalDifference = 0;
+        for (let j = 0; j < nails.length; j++) {
+            totalDifference += Math.abs(nails[i] - nails[j]);
+        }
+        if (totalDifference < lowestDifference) {
+            lowestDifference = totalDifference;
+        }
+    }
+
+    console.log(`The lowest difference is ${lowestDifference}`);
 }
 
 const parseLine = (line: string) => {
-   message = line;
+   nails.push(Number(line));
 };
 
 var lineReader = require('readline').createInterface({

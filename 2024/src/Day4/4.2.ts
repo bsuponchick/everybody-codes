@@ -1,18 +1,28 @@
-import { add } from './4.2.logic';
-
 const args = process.argv;
 const debug = args.includes('--debug');
 const test = args.includes('--test');
 
-let message: string = '';
+let nails: number[] = [];
 
 const execute = () => {
-    console.log(`The message is ${message}`);
-    console.log(`Get ready for Everybody Codes 2024!`);
+    console.log(`There are ${nails.length} nails`);
+
+    nails.sort((a, b) => a - b);
+
+    const lowestNail = nails[0];
+
+    let totalDifferenceBetweenNails = 0;
+    nails.forEach((nail, index) => {
+        if (index !== 0) {
+            totalDifferenceBetweenNails += (nail - nails[0]);
+        }
+    });
+
+    console.log(`The total difference between the nails is ${totalDifferenceBetweenNails}`);
 }
 
 const parseLine = (line: string) => {
-   message = line;
+   nails.push(Number(line));
 };
 
 var lineReader = require('readline').createInterface({
