@@ -1,18 +1,33 @@
 import { describe, expect, test } from '@jest/globals';
-import { add } from './5.3.logic';
+import { dance } from './5.3.logic';
 
 describe('Day 5 - Part 3', () => {
-    describe(`When the add function is called...`, () => {
-        test(`with 1 and 2, it should return 3`, () => {
-            expect(add(1, 2)).toBe(3);
+    describe(`When the dance function is called...`, () => {
+        test(`It should properly wrap...`, () => {
+            const dancers = [1, 2, 3, 4, 5];
+            const clapper = 6;
+
+            const result = dance(dancers, clapper);
+
+            expect(result).toEqual([1, 2, 3, 4, 5, 6]);
         });
 
-        test(`with 2 and 3, it should return 5`, () => {
-            expect(add(2, 3)).toBe(5);
+        test(`It should properly wrap multiple times and stop on the left...`, () => {
+            const dancers = [1, 2, 3, 4, 5];
+            const clapper = 11;
+
+            const result = dance(dancers, clapper);
+
+            expect(result).toEqual([11, 1, 2, 3, 4, 5]);
         });
 
-        test(`with 3 and 4, it should return 7`, () => {
-            expect(add(3, 4)).toBe(7);
+        test(`It should properly wrap multiple times and stop on the right...`, () => {
+            const dancers = [1, 2, 3, 4, 5];
+            const clapper = 17;
+
+            const result = dance(dancers, clapper);
+
+            expect(result).toEqual([1, 2, 3, 4, 17, 5]);
         });
     });
 });
