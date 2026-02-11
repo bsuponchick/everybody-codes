@@ -1,18 +1,28 @@
-import { add } from './8.1.logic';
-
 const args = process.argv;
 const debug = args.includes('--debug');
 const test = args.includes('--test');
 
-let message: string = '';
+let blocksRemaining: number = 0;
 
 const execute = () => {
-    console.log(`The message is ${message}`);
-    console.log(`Get ready for Everybody Codes 2024!`);
+    console.log(`There are ${blocksRemaining} blocks to begin with`);
+
+    let blocksRequiredForNextLevel = 1;
+
+    while (blocksRemaining >= blocksRequiredForNextLevel) {
+        blocksRemaining -= blocksRequiredForNextLevel;
+        blocksRequiredForNextLevel += 2;
+    }
+
+    const additionalBlocksRequired = blocksRequiredForNextLevel - blocksRemaining;
+    console.log(`Additional blocks required: ${additionalBlocksRequired}`);
+
+    const product = additionalBlocksRequired * blocksRequiredForNextLevel;
+    console.log(`The product is ${product}`);
 }
 
 const parseLine = (line: string) => {
-   message = line;
+    blocksRemaining = Number(line);
 };
 
 var lineReader = require('readline').createInterface({

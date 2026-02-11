@@ -1,18 +1,22 @@
 import { describe, expect, test } from '@jest/globals';
-import { add } from './8.2.logic';
+import { calculateNextThickness } from './8.2.logic';
 
 describe('Day 8 - Part 2', () => {
-    describe(`When the add function is called...`, () => {
-        test(`with 1 and 2, it should return 3`, () => {
-            expect(add(1, 2)).toBe(3);
+    describe(`When the calculateNextThickness function is called...`, () => {
+        test(`Should return 3 when the previous thickness is 1, the count of priests is 3 and the count of acolytes is 5`, () => {
+            expect(calculateNextThickness({ previousThickness: 1, countOfPriests: 3, countOfAcolytes: 5 })).toBe(3);
         });
 
-        test(`with 2 and 3, it should return 5`, () => {
-            expect(add(2, 3)).toBe(5);
+        test(`Should return 4 when the previous thickness is 3, the count of priests is 3 and the count of acolytes is 5`, () => {
+            expect(calculateNextThickness({ previousThickness: 3, countOfPriests: 3, countOfAcolytes: 5 })).toBe(4);
         });
 
-        test(`with 3 and 4, it should return 7`, () => {
-            expect(add(3, 4)).toBe(7);
+        test(`Should return 2 when the previous thickness is 4, the count of priests is 3 and the count of acolytes is 5`, () => {
+            expect(calculateNextThickness({ previousThickness: 4, countOfPriests: 3, countOfAcolytes: 5 })).toBe(2);
+        });
+
+        test(`Should return 1 when the previous thickness is 2, the count of priests is 3 and the count of acolytes is 5`, () => {
+            expect(calculateNextThickness({ previousThickness: 2, countOfPriests: 3, countOfAcolytes: 5 })).toBe(1);
         });
     });
 });
