@@ -1,18 +1,37 @@
-import { add } from './9.1.logic';
-
 const args = process.argv;
 const debug = args.includes('--debug');
 const test = args.includes('--test');
 
-let message: string = '';
+const sparkballs: number[] = [];
 
 const execute = () => {
-    console.log(`The message is ${message}`);
-    console.log(`Get ready for Everybody Codes 2024!`);
+    let totalBeetlesRequired = 0;
+
+    sparkballs.forEach((sparkball) => {
+        let currentSpark = 0;
+
+        while (currentSpark < sparkball) {
+            let difference = sparkball - currentSpark;
+
+            if (difference >= 10) {
+                currentSpark += 10;
+            } else if (difference >= 5) {
+                currentSpark += 5;
+            } else if (difference >= 3) {
+                currentSpark += 3;
+            } else {
+                currentSpark += 1;
+            }
+
+            totalBeetlesRequired++;
+        }
+    });
+
+    console.log(`Total beetles required: ${totalBeetlesRequired}`);
 }
 
 const parseLine = (line: string) => {
-   message = line;
+   sparkballs.push(Number(line));
 };
 
 var lineReader = require('readline').createInterface({

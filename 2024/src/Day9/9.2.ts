@@ -1,18 +1,33 @@
-import { add } from './9.2.logic';
-
+import { Forest, generateForestFromStamps } from './9.2.logic';
 const args = process.argv;
 const debug = args.includes('--debug');
 const test = args.includes('--test');
 
-let message: string = '';
+const sparkballs: number[] = [];
+const stamps: number[] = [30, 25, 24, 20, 16, 15, 10, 5, 3, 1];
 
 const execute = () => {
-    console.log(`The message is ${message}`);
-    console.log(`Get ready for Everybody Codes 2024!`);
+    let totalBeetlesRequired = 0;
+    sparkballs.sort((a, b) => b - a);
+    const highestSparkball = sparkballs[0];
+
+    console.log(`Highest sparkball: ${highestSparkball}`);
+
+    const forest = generateForestFromStamps({ stamps, maxValue: highestSparkball });
+
+    sparkballs.forEach((sparkball) => {
+        const shortestPathLength = forest.getShortestPathLengthFromRootToNodeValue(sparkball);
+        if (debug) {
+            console.log(`Shortest path length for sparkball ${sparkball}: ${shortestPathLength}`);
+        }
+        totalBeetlesRequired += shortestPathLength;
+    });
+
+    console.log(`Total beetles required: ${totalBeetlesRequired}`);
 }
 
 const parseLine = (line: string) => {
-   message = line;
+   sparkballs.push(Number(line));
 };
 
 var lineReader = require('readline').createInterface({
