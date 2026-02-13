@@ -1,18 +1,37 @@
-import { add } from './10.1.logic';
+import { determinePossibleValuesForCoordinate, determineCoordinatesToFill } from './10.1.logic';
 
 const args = process.argv;
 const debug = args.includes('--debug');
 const test = args.includes('--test');
 
-let message: string = '';
+let grid: string[][] = [];
 
 const execute = () => {
-    console.log(`The message is ${message}`);
-    console.log(`Get ready for Everybody Codes 2024!`);
+    let coordinatesToFill = determineCoordinatesToFill(grid);
+    const originalCoordinatesToFill = [...coordinatesToFill];
+
+    console.log(`There are ${coordinatesToFill.length} coordinates to fill`);
+
+    while (coordinatesToFill.length > 0) {
+        const coordinate = coordinatesToFill.shift();
+        const possibleValues = determinePossibleValuesForCoordinate(grid, coordinate);
+        console.log(`Possible values for coordinate ${coordinate.x}, ${coordinate.y}: ${possibleValues.join(', ')}`);
+        
+        if (possibleValues.length === 1) {
+            grid[coordinate.y][coordinate.x] = possibleValues[0];
+            coordinatesToFill = determineCoordinatesToFill(grid);
+        }
+    }
+
+    let runicWord = '';
+    for (const coordinate of originalCoordinatesToFill) {
+        runicWord += grid[coordinate.y][coordinate.x];
+    }
+    console.log(`The runic word is ${runicWord}`);
 }
 
 const parseLine = (line: string) => {
-   message = line;
+   grid.push(line.split(''));
 };
 
 var lineReader = require('readline').createInterface({
