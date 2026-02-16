@@ -1,18 +1,36 @@
-import { add } from './10.3.logic';
+import { Grid, GridSegment, determinePowerOfRunicWord } from './10.3.logic';
 
 const args = process.argv;
 const debug = args.includes('--debug');
 const test = args.includes('--test');
 
-let message: string = '';
+let grid: Grid = new Grid();
 
 const execute = () => {
-    console.log(`The message is ${message}`);
-    console.log(`Get ready for Everybody Codes 2024!`);
+    const gridSegments = grid.determineAllGridSegments();
+    grid.print();
+
+    console.log('===============================================');
+
+    grid.solve();
+
+    grid.print();
+
+    console.log(`There are ${gridSegments.length} grid segments`);
+
+    const runicWords = grid.determineRunicWords(gridSegments);
+
+    let powerOfRunicWords = 0;
+    for (const runicWord of runicWords) {
+        powerOfRunicWords += determinePowerOfRunicWord(runicWord);
+    }
+
+    console.log(`The runic words are ${runicWords.join(', ')}`);
+    console.log(`The power of the runic words is ${powerOfRunicWords}`);
 }
 
 const parseLine = (line: string) => {
-   message = line;
+    grid.addRow(line.split(''));
 };
 
 var lineReader = require('readline').createInterface({
