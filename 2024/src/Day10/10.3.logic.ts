@@ -124,19 +124,18 @@ export class Grid {
         const gridSegments = this.determineAllGridSegments();
         let continueFilling = true;
 
-        for (const gridSegment of gridSegments) {
-            let continueFillingSegment = true;
+        while (continueFilling) {
+            continueFilling = false;
+            for (const gridSegment of gridSegments) {
+                let continueFillingSegment = true;
 
-            while (continueFillingSegment) {
-                const filledDots = this.attemptToFillGridSegments(gridSegment);
-                const filledQuestionMarks = this.attemptToFillQuestionMarks(gridSegment);
-                continueFillingSegment = filledDots || filledQuestionMarks;
-                continueFilling = continueFilling || filledDots || filledQuestionMarks;
+                while (continueFillingSegment) {
+                    const filledDots = this.attemptToFillGridSegments(gridSegment);
+                    const filledQuestionMarks = this.attemptToFillQuestionMarks(gridSegment);
+                    continueFillingSegment = filledDots || filledQuestionMarks;
+                    continueFilling = continueFilling || filledDots || filledQuestionMarks;
+                }
             }
-
-            console.log(`Finished filling grid segment ${gridSegment.topLeft.x}, ${gridSegment.topLeft.y} to ${gridSegment.bottomRight.x}, ${gridSegment.bottomRight.y}`);
-            this.print();
-            console.log('===============================================');
         }
     }
 
