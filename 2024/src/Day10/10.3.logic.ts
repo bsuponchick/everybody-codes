@@ -7,13 +7,23 @@ export interface GridSegment {
 
 export class Grid {
     values: string[][];
+    startingValues: string[][];
 
     constructor() {
         this.values = [];
+        this.startingValues = [];
     }
 
     addRow(row: string[]) {
         this.values.push(row);
+    }
+
+    snapshot() {
+        this.startingValues = this.values.map(row => [...row]);
+    }
+
+    restore() { 
+        this.values = this.startingValues.map(row => [...row]);
     }
 
     determineRunicWords(gridSegments: GridSegment[]): string[] {
@@ -27,7 +37,6 @@ export class Grid {
                 }
             }
 
-            console.log(`Runic word: ${runicWord}`);
             if (runicWord.indexOf('.') === -1) {
                 runicWords.push(runicWord);
             }
@@ -126,7 +135,16 @@ export class Grid {
 
         while (continueFilling) {
             continueFilling = false;
-            for (const gridSegment of gridSegments) {
+
+            // Try to solve the grid segments in a random order
+            const randomGridSegments = [...gridSegments];
+            randomGridSegments.sort(() => Math.random() - 0.5);
+
+            for (const gridSegment of randomGridSegments) {
+                if (this.isSolved(gridSegment)) {
+                    continue;
+                }
+
                 let continueFillingSegment = true;
 
                 while (continueFillingSegment) {
@@ -139,6 +157,19 @@ export class Grid {
         }
     }
 
+    isSolved(gridSegment: GridSegment): boolean {
+        let solved = true;
+
+        for (let row = gridSegment.topLeft.y; row < gridSegment.bottomRight.y; row++) {
+            for (let column = gridSegment.topLeft.x; column < gridSegment.bottomRight.x; column++) {
+                if (this.values[row][column] === '.' || this.values[row][column] === '?') {
+                    solved = false;
+                }
+            }
+        }
+        return solved;
+    }
+
     attemptToFillGridSegments(gridSegment: GridSegment): boolean {
         let filled = false;
 
@@ -146,7 +177,6 @@ export class Grid {
         while (coordinatesToFill.length > 0) {
             const coordinate = coordinatesToFill.shift();
             const possibleValues = this.determinePossibleValuesForCoordinate(gridSegment, coordinate);
-            console.log(`Possible values for coordinate ${coordinate.x}, ${coordinate.y}: ${possibleValues.join(', ')}`);
 
             if (possibleValues.length === 1) {
                 this.values[coordinate.y][coordinate.x] = possibleValues[0];
@@ -187,10 +217,8 @@ export class Grid {
                 }
             }
 
-            console.log(`There are ${coordinatesOfUnknownValues.length} unknown values in the column or row of the question mark ${coordinateOfQuestionMark.x}, ${coordinateOfQuestionMark.y}`);
             for (const coordinateOfUnknownValue of coordinatesOfUnknownValues) {
                 const possibleValues = this.determinePossibleValuesForCoordinateV2(gridSegment, coordinateOfUnknownValue);
-                console.log(`Possible values for coordinate ${coordinateOfUnknownValue.x}, ${coordinateOfUnknownValue.y}: ${possibleValues.join(', ')}`);
 
                 if (possibleValues.length === 1) {
                     this.values[coordinateOfUnknownValue.y][coordinateOfUnknownValue.x] = possibleValues[0];

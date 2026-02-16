@@ -5,28 +5,33 @@ const debug = args.includes('--debug');
 const test = args.includes('--test');
 
 let grid: Grid = new Grid();
+const RETRIES = 100000;
 
 const execute = () => {
+    let maxRunicWordPower = 0;
+
+    grid.snapshot();
+
     const gridSegments = grid.determineAllGridSegments();
-    grid.print();
+    for (let i = 0; i < RETRIES; i++) {
+        console.log(`Retrying ${i + 1} of ${RETRIES}`);
+        grid.solve();
 
-    console.log('===============================================');
+        const runicWords = grid.determineRunicWords(gridSegments);
 
-    grid.solve();
+        let powerOfRunicWords = 0;
+        for (const runicWord of runicWords) {
+            powerOfRunicWords += determinePowerOfRunicWord(runicWord);
+        }
 
-    grid.print();
+        if (powerOfRunicWords > maxRunicWordPower) {
+            maxRunicWordPower = powerOfRunicWords;
+        }
 
-    console.log(`There are ${gridSegments.length} grid segments`);
-
-    const runicWords = grid.determineRunicWords(gridSegments);
-
-    let powerOfRunicWords = 0;
-    for (const runicWord of runicWords) {
-        powerOfRunicWords += determinePowerOfRunicWord(runicWord);
+        grid.restore();
     }
-
-    console.log(`The runic words are ${runicWords.join(', ')}`);
-    console.log(`The power of the runic words is ${powerOfRunicWords}`);
+    
+    console.log(`The max power of the runic words is ${maxRunicWordPower}`);
 }
 
 const parseLine = (line: string) => {
