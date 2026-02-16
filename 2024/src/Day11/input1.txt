@@ -1,1 +1,6 @@
-Hello World!!
+E:U,A
+U:O,A
+O:U,Y,A
+I:E,A,Y
+A:E,Y,Y
+Y:U,A

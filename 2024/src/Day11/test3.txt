@@ -1,1 +1,3 @@
-Hello World!!
+A:B,C
+B:C,A,A
+C:A

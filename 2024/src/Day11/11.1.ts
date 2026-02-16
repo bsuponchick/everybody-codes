@@ -1,18 +1,31 @@
-import { add } from './11.1.logic';
-
 const args = process.argv;
 const debug = args.includes('--debug');
 const test = args.includes('--test');
 
-let message: string = '';
+const lifecycles: Map<string, string[]> = new Map();
+const MAX_LIFECYCLE = 4;
 
 const execute = () => {
-    console.log(`The message is ${message}`);
-    console.log(`Get ready for Everybody Codes 2024!`);
+    let termites: string[] = ['A'];
+    
+    for (let lifecycle = 0; lifecycle < MAX_LIFECYCLE; lifecycle++) {
+        const newTermites: string[] = [];
+
+        while (termites.length > 0) {
+            const termite = termites.shift();
+            newTermites.push(...lifecycles.get(termite));
+        }
+
+        termites = newTermites;
+    }
+
+    console.log(`The termites are ${termites.join(', ')}`);
+    console.log(`The number of termites is ${termites.length}`);
 }
 
 const parseLine = (line: string) => {
-   message = line;
+   const parts = line.split(':');
+   lifecycles.set(parts[0], parts[1].split(','));
 };
 
 var lineReader = require('readline').createInterface({
