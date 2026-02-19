@@ -17,6 +17,10 @@ export class Node {
         this.edges = this.edges.filter((e) => e !== edge);
     }
 
+    alreadyConnectedTo(node: Node) {
+        return this.edges.some((edge) => edge.start === node || edge.end === node);
+    }
+
     visit() {
         this.visited = true;
     }
