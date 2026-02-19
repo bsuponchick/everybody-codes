@@ -88,6 +88,10 @@ export class Graph {
         this.nodes.forEach((node) => node.reset());
     }
 
+    getNodes() {
+        return this.nodes;
+    }
+
     findShortestPath(start: Node, end: Node): {distance: number, path: Node[]} {
         const distance = {};
         const previous = {};
