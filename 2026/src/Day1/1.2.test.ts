@@ -1,18 +1,28 @@
 import { describe, expect, test } from '@jest/globals';
-import { add } from './1.2.logic';
+import { determinePerimeterCount, determineSmallestPineconesNeededForSquarePermiter } from './1.2.logic';
 
 describe('Day 1 - Part 2', () => {
-    describe(`When the add function is called...`, () => {
-        test(`with 1 and 2, it should return 3`, () => {
-            expect(add(1, 2)).toBe(3);
+    describe(`When the determinePerimeterCount method is called...`, () => {
+        test(`It should return 8 when the side length is 3`, () => {
+            expect(determinePerimeterCount(3)).toBe(8);
         });
 
-        test(`with 2 and 3, it should return 5`, () => {
-            expect(add(2, 3)).toBe(5);
+        test(`It should return 16 when the side length is 5`, () => {
+            expect(determinePerimeterCount(5)).toBe(16);
+        });
+    });
+
+    describe(`When the determineSmallestPineconesNeededForSquarePermiter method is called`, () => {
+        test(`It should return 8 when the pinecone count is 4`, () => {
+            expect(determineSmallestPineconesNeededForSquarePermiter(4)).toBe(8);
         });
 
-        test(`with 3 and 4, it should return 7`, () => {
-            expect(add(3, 4)).toBe(7);
+        test(`It should return 12 when the pinecone count is 9`, () => {
+            expect(determineSmallestPineconesNeededForSquarePermiter(9)).toBe(12);
+        });
+
+        test(`It should return 8 when the pinecone count is 8`, () =>{
+            expect(determineSmallestPineconesNeededForSquarePermiter(8)).toBe(8);
         });
     });
 });

@@ -5,8 +5,8 @@
       "target": "ES2022",
       "moduleResolution": "node",
       "sourceMap": true,
-      // "strict": true,
-      // "noImplicitAny": false,
+      "strict": false,
+      "types": ["node", "jest"],
       "lib": ["es2021"],
     }
   }

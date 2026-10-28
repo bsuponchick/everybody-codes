@@ -1,18 +1,14 @@
 import { describe, expect, test } from '@jest/globals';
-import { add } from './1.3.logic';
+import { determineSmallestOutpostAreaPossible } from './1.3.logic';
 
 describe('Day 1 - Part 3', () => {
-    describe(`When the add function is called...`, () => {
-        test(`with 1 and 2, it should return 3`, () => {
-            expect(add(1, 2)).toBe(3);
+    describe(`When the determineSmallestOutpostAreaPossible method is called...`, () => {
+        test(`Should return 8 when the pinecones count is 3`, () => {
+            expect(determineSmallestOutpostAreaPossible(3)).toBe(8);
         });
 
-        test(`with 2 and 3, it should return 5`, () => {
-            expect(add(2, 3)).toBe(5);
-        });
-
-        test(`with 3 and 4, it should return 7`, () => {
-            expect(add(3, 4)).toBe(7);
+        test(`Should return 24 when the pinecones count is 9`, () => {
+            expect(determineSmallestOutpostAreaPossible(9)).toBe(24);
         });
     });
 });

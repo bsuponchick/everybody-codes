@@ -1,18 +1,27 @@
-import { add } from './1.2.logic';
+import { determineSmallestPineconesNeededForSquarePermiter } from './1.2.logic';
 
 const args = process.argv;
 const debug = args.includes('--debug');
 const test = args.includes('--test');
 
 let message: string = '';
+const outposts: number[] = [];
+let sumOfNeededPinecones = 0;
 
 const execute = () => {
-    console.log(`The message is ${message}`);
-    console.log(`Get ready for Everybody Codes 2026!`);
+    outposts.forEach((outpost) => {
+        let lengthOfPerimeterNeeded = determineSmallestPineconesNeededForSquarePermiter(outpost);
+        sumOfNeededPinecones = sumOfNeededPinecones + (lengthOfPerimeterNeeded - outpost);
+    });
+
+    console.log(`The total number of pinecones needed to be collected is ${sumOfNeededPinecones}`);
 }
 
 const parseLine = (line: string) => {
-   message = line;
+    const pineconeSizesAsStrings = line.split(',');
+    pineconeSizesAsStrings.forEach((size) => {
+        outposts.push(Number.parseInt(size));
+    });
 };
 
 var lineReader = require('readline').createInterface({
