@@ -1,18 +1,44 @@
-import { add } from './16.1.logic';
-
 const args = process.argv;
 const debug = args.includes('--debug');
 const test = args.includes('--test');
 
-let message: string = '';
+const numberOfTurns: number[] = [];
+const wheels: string[][] = [];
+const TURNS = 100;
 
 const execute = () => {
-    console.log(`The message is ${message}`);
-    console.log(`Get ready for Everybody Codes 2024!`);
+    if (debug) {
+        console.log(`Number of turns: ${numberOfTurns.join(', ')}`);
+        console.log(`Wheels: ${wheels.map(wheel => wheel.join(', ')).join('\n')}`);
+    }
+
+    let sequence: string[] = [];
+
+    wheels.forEach((wheel, index) => {
+        const wheelTurns = numberOfTurns[index] * TURNS;
+        const result = wheel[wheelTurns % wheel.length];
+        sequence.push(result);
+    });
+
+    console.log(`Sequence: ${sequence.join(' ')}`);
 }
 
 const parseLine = (line: string) => {
-   message = line;
+    if (line.charAt(0).match(/[0-9]/)) {
+        const numberParts = line.split(',');
+        for (const numberPart of numberParts) {
+            numberOfTurns.push(parseInt(numberPart));
+            wheels.push([]);
+        }
+    } else if (line.trim().length > 0) {
+        for (let i = 0; i < line.length; i+=4) {
+            const segment = line.substring(i, i + 3);
+            if (segment.trim().length > 0) {
+                // This is a valid segment
+                wheels[i / 4].push(segment);
+            }
+        }
+    }
 };
 
 var lineReader = require('readline').createInterface({

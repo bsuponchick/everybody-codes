@@ -1,18 +1,18 @@
 import { describe, expect, test } from '@jest/globals';
-import { add } from './16.2.logic';
+import { calculateScore } from './16.2.logic';
 
 describe('Day 16 - Part 2', () => {
-    describe(`When the add function is called...`, () => {
-        test(`with 1 and 2, it should return 3`, () => {
-            expect(add(1, 2)).toBe(3);
+    describe(`When the calculateScore function is called...`, () => {
+        test(`Should return 1 for ['>.-','-.-','^_^']`, () => {
+            expect(calculateScore(['>.-','-.-','^_^'])).toBe(1);
         });
 
-        test(`with 2 and 3, it should return 5`, () => {
-            expect(add(2, 3)).toBe(5);
+        test(`Should return 5 for ['^_^','^_^','^_^']`, () => {
+            expect(calculateScore(['^_^','^_^','^_^'])).toBe(4);
         });
 
-        test(`with 3 and 4, it should return 7`, () => {
-            expect(add(3, 4)).toBe(7);
+        test(`Should return 2 for ['^_^','^_^','>.<']`, () => {
+            expect(calculateScore(['^_^','^_^','>.<'])).toBe(2);
         });
     });
 });
