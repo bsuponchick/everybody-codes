@@ -1,4 +1,4 @@
-import { sortAlloys, parseRules, Rule } from './2.1.logic';
+import { sortAlloys, parseRules, Rule } from './2.3.logic';
 
 const args = process.argv;
 const debug = args.includes('--debug');
