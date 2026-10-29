@@ -1,18 +1,29 @@
-import { add } from './2.1.logic';
+import { sortAlloys, parseRules, Rule } from './2.1.logic';
 
 const args = process.argv;
 const debug = args.includes('--debug');
 const test = args.includes('--test');
 
-let message: string = '';
+let alloyGroups: string[] = [];
+let checksum = 0;
 
 const execute = () => {
-    console.log(`The message is ${message}`);
-    console.log(`Get ready for Everybody Codes 2026!`);
+    alloyGroups.forEach((group, index) => {
+        let groupRules: Rule[] = parseRules(group);
+        let sortedAlloys = sortAlloys(groupRules);
+
+        if (debug) {
+            console.log(`The sorted alloys for group ${index} is ${JSON.stringify(sortedAlloys)}`);
+        }
+        
+        checksum = checksum + (Number.parseInt(sortedAlloys.toString().replaceAll(',', '')));
+    });
+
+    console.log(`The final checksum is ${checksum}`);
 }
 
 const parseLine = (line: string) => {
-   message = line;
+   alloyGroups.push(line);
 };
 
 var lineReader = require('readline').createInterface({
