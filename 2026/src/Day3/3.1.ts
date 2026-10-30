@@ -1,18 +1,29 @@
-import { add } from './3.1.logic';
+import { calculateValueOfVote, VoteParams } from './3.1.logic';
 
 const args = process.argv;
 const debug = args.includes('--debug');
 const test = args.includes('--test');
 
-let message: string = '';
+const votes: VoteParams[] = [];
 
 const execute = () => {
-    console.log(`The message is ${message}`);
-    console.log(`Get ready for Everybody Codes 2026!`);
+    let sumOfVotes = 0;
+
+    votes.forEach((vote) => {
+        sumOfVotes = sumOfVotes + calculateValueOfVote(vote);
+    });
+
+    console.log(`The sum of the votes is ${sumOfVotes}`);
 }
 
 const parseLine = (line: string) => {
-   message = line;
+    const lineMinusIso = line.replace(`ISO-`, '');
+    const lineParts = lineMinusIso.split(' ');
+
+    votes.push({
+        iso: lineParts[0],
+        vote: lineParts[1]
+    });
 };
 
 var lineReader = require('readline').createInterface({
