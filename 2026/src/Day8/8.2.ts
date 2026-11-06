@@ -7,7 +7,6 @@ const test = args.includes('--test');
 let field: string[][] = [];
 
 const execute = () => {
-    // SPLIT THESE UP
     let energyFromNorthwest = 0;
     let energyFromNortheast = 0;
     let energyFromEast = 0;
