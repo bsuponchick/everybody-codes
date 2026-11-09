@@ -48,7 +48,7 @@ export class Plant {
                 }
             });
 
-            console.log(`New branches: ${JSON.stringify(newBranches)}`);
+            // console.log(`New branches: ${JSON.stringify(newBranches)}`);
 
             this.branches = [...newBranches];
         }
