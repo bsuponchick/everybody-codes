@@ -1,18 +1,32 @@
-import { add } from './9.2.logic';
+import { Plant } from './9.2.logic';
 
 const args = process.argv;
 const debug = args.includes('--debug');
 const test = args.includes('--test');
 
-let message: string = '';
+const plants: Plant[] = [];
 
 const execute = () => {
-    console.log(`The message is ${message}`);
-    console.log(`Get ready for Everybody Codes 2026!`);
+    let totalGrowthTime = 0;
+
+    plants.forEach((plant, index) => {
+        const plantGrowthTime = plant.growToFullSize();
+
+        console.log(`Plant ${index + 1}: ${plantGrowthTime} seconds`);
+
+        totalGrowthTime += plantGrowthTime;
+    });
+
+    console.log(`The total required time for all plants to grow to full size it ${totalGrowthTime}`);
 }
 
 const parseLine = (line: string) => {
-   message = line;
+   const parts = line.split(', ');
+   plants.push(new Plant({
+        id: Number.parseInt(parts[0].replace(`id=`, '')),
+        growth: Number.parseInt(parts[1].replace(`growth=`, '')),
+        limit: Number.parseInt(parts[2].replace(`limit=`, ''))
+   }));
 };
 
 var lineReader = require('readline').createInterface({
