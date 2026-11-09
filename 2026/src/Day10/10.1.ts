@@ -12,6 +12,7 @@ const execute = () => {
 
     for (let i = 0; i < MAX_ROUNDS; i++) {
         grid.nextRound();
+        grid.print();
         console.log(`As of round ${i + 1}, there have been ${grid.getCountOfCollisions()} collissions`);
     }
 

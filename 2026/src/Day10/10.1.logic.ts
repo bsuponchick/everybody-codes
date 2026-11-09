@@ -232,7 +232,7 @@ export class Grid {
                     
                     if (ghostsOnTile.length > 1) {
                         ghostsOnTile.forEach((ghost) => {
-                            ghost.incrementCollisionCount(ghostsOnTile.length - 1);
+                            ghost.incrementCollisionCount(1);
                             ghost.rotate180();
                         });
                     }
@@ -249,5 +249,31 @@ export class Grid {
         });
 
         return collisions;
+    }
+
+    print = (): void => {
+        console.log(`------------------------------------------`);
+        this.tiles.forEach((row) => {
+            const line = row.map((tile) => {
+                if (tile.isType(TileType.Wall)) {
+                    return TileType.Wall;
+                }
+
+                const ghostsOnTile = tile.getGhosts();
+
+                if (ghostsOnTile.length === 0) {
+                    return TileType.Empty;
+                }
+
+                if (ghostsOnTile.length === 1) {
+                    return ghostsOnTile[0].getDirection();
+                }
+
+                return ghostsOnTile.length.toString();
+            }).join('');
+
+            console.log(line);
+        });
+        console.log(`------------------------------------------`);
     }
 }
