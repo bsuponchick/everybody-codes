@@ -1,5 +1,5 @@
 import { Graph, Edge } from '../utils/dijkstra/dijkstra';
-import { constructGraph, calculateShortestDistancesAroundTheRing } from './11.2.logic';
+import { constructGraph, calculateShortestDistancesAroundTheRing, findLowestDistancesByAddingOneEdge } from './11.2.logic';
 
 const args = process.argv;
 const debug = args.includes('--debug');
@@ -34,10 +34,10 @@ const execute = () => {
     });
 
     // NEED TO ADD MOST OPTIMAL NEW EDGE NEXT...
-    //const totalDistanceAfterShortcuts = calculateShortestDistancesAroundTheRing(graph);
-    //console.log(`The total distance after shortcuts is ${totalDistanceAfterShortcuts}`);
+    const lowestPossibleDistanceByAddingOneEdge = findLowestDistancesByAddingOneEdge(graph);
+    console.log(`The total distance after shortcuts is ${lowestPossibleDistanceByAddingOneEdge}`);
 
-    //console.log(`The resonance is ${totalDistanceBeforeShortcuts - totalDistanceAfterShortcuts}`);
+    console.log(`The resonance is ${totalDistanceBeforeShortcuts - lowestPossibleDistanceByAddingOneEdge}`);
 }
 
 const parseLine = (line: string) => {

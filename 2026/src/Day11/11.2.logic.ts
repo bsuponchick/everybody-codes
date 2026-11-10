@@ -23,7 +23,6 @@ export const constructGraph = (size: number): Graph => {
         }
         
         nodesToTheRight.forEach((node) => {
-            console.log(`Adding edge from ${currentNode.id} to ${node.id}`);
             graph.addEdge(new Edge({
                 start: currentNode,
                 end: node,
@@ -41,7 +40,7 @@ export const getShortestTotalDistanceToAllNodesFrom = (graph: Graph, start: Node
     graph.nodes.forEach((node) => {
         if (start.id !== node.id) {
             const distance = graph.findShortestPath(start, node).distance;
-            console.log(`The shortest distance from ${start.id} to ${node.id} is ${distance}`);
+            // console.log(`The shortest distance from ${start.id} to ${node.id} is ${distance}`);
             totalDistance += distance;
         }
     });
@@ -58,4 +57,32 @@ export const calculateShortestDistancesAroundTheRing = (graph: Graph): number =>
     });
 
     return totalDistance;
+}
+
+export const findLowestDistancesByAddingOneEdge = (graph: Graph): number => {
+    let shortestTotalDistance = 999999999999;
+
+    graph.nodes.forEach((currentNode) => {
+        graph.nodes.forEach((nextNode) => {
+            if (currentNode.id !== nextNode.id) {
+                //Create a temporary edge
+                const tempEdge = new Edge({
+                    start: currentNode,
+                    end: nextNode,
+                    weight: 1
+                });
+
+                graph.addEdge(tempEdge);
+
+                const totalDistance = calculateShortestDistancesAroundTheRing(graph);
+                if (totalDistance < shortestTotalDistance) {
+                    shortestTotalDistance = totalDistance;
+                }
+
+                graph.removeEdge(tempEdge);
+            }
+        });
+    });
+
+    return shortestTotalDistance;
 }
